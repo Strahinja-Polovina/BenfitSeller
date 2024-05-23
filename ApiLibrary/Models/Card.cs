@@ -9,7 +9,7 @@
         public class Card
         {
             public int Id { get; set; }
-        public string CardNumber { get; set; } = string.Empty;
+            public string CardNumber { get; set; } = string.Empty;
             public string Pin { get; set; } = string.Empty;
             public decimal Balance { get; set; }
             public int EmployeeId { get; set; }

@@ -13,10 +13,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -111,7 +108,7 @@ app.Use(async (context, next) =>
     logMessage = $"Outgoing Response - Path: {context.Request.Path}, Status Code: {context.Response.StatusCode}, ContentType: {context.Response.ContentType}";
     logger.LogInformation(logMessage);
 });
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

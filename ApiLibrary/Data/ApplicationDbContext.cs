@@ -632,13 +632,6 @@ namespace ApiLibrary.Data
                 );
 
         }
-
-
-
-        internal async Task<Company?> FindAsync(int companyId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

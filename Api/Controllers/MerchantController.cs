@@ -10,12 +10,13 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "Admin")]
     public class MerchantController(IMerchantService merchantService, IMapper mapper) : Controller
     {
         private readonly IMerchantService _merchantService = merchantService;
         private readonly IMapper _mapper = mapper;
 
-        [Authorize(Policy = "Admin")]
+    
         [HttpGet]
         public async Task<IActionResult> GetMerchants()
         {
@@ -31,7 +32,6 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize(Policy = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMerchant(int id)
         {
@@ -50,7 +50,7 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize(Policy = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> CreateMerchant([FromBody] ICreateMerchantDTO merchantDTO)
         {
@@ -73,7 +73,7 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize(Policy = "Admin")]
+    
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMerchant(int id, [FromBody] IUpdateMerchantDTO merchantDTO)
         {
