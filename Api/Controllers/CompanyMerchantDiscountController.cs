@@ -23,6 +23,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDiscount([FromBody] ICompanyMerchantDTO companyMerchantDiscountDto)
         {
+            if (!ModelState.IsValid || companyMerchantDiscountDto == null)
+            {
+                return BadRequest(ModelState);
+            }
             var companyId = GetCompanyId();
             Console.WriteLine(companyId);
             if (companyId == 0)
@@ -49,6 +53,10 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDiscount(int id)
         {
+                        if (id == 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 var companyId = GetCompanyId();

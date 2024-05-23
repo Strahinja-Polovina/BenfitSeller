@@ -19,6 +19,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Pay([FromBody] IPayDTO pay)
         {
+            if (!ModelState.IsValid || pay == null)
+            {
+                return BadRequest(ModelState);
+            }
             var response = await _paymentService.Pay(pay);
             Transactions transaction = _mapper.Map<Transactions>(response);
             await _db.Transactions.AddAsync(transaction);

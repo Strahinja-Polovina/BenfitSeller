@@ -38,6 +38,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 Category category = await _categoryService.GetCategoryById(id);
@@ -52,6 +56,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] ICategoryDTO categoryDTO)
         {
+            if (!ModelState.IsValid || categoryDTO == null)
+            {
+                return BadRequest("Invalid category data");
+            }
             try
             {
                 Category category = _mapper.Map<Category>(categoryDTO);

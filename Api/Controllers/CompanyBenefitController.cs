@@ -47,6 +47,11 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompanyBenefit(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
             int companyId = GetCompanyId();
 
             try

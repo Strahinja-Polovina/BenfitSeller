@@ -19,6 +19,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] IEmployeeDTO employeeDTO)
         {
+     
             if (!ModelState.IsValid || employeeDTO == null)
             {
                 return BadRequest(ModelState); 
@@ -45,6 +46,10 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest("Invalid employee id");
+            }
             int companyId = GetCompanyId();
             if (companyId == 0)
             {

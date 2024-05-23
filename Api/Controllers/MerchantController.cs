@@ -35,6 +35,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMerchant(int id)
         {
+                        if (id <= 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 Merchant merchant = await _merchantService.GetMerchantById(id);
@@ -50,6 +54,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMerchant([FromBody] ICreateMerchantDTO merchantDTO)
         {
+                        if (!ModelState.IsValid || merchantDTO == null)
+            {
+                return BadRequest("Invalid data");
+            }
             try
             {
                 Merchant merchant = _mapper.Map<Merchant>(merchantDTO);
@@ -69,6 +77,10 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMerchant(int id, [FromBody] IUpdateMerchantDTO merchantDTO)
         {
+            if (!ModelState.IsValid || merchantDTO == null)
+            {
+                return BadRequest("Invalid data");
+            }
             try
             {
                 Merchant merchant = _mapper.Map<Merchant>(merchantDTO);
@@ -86,6 +98,10 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMerchant(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 string response = await _merchantService.DeleteMerchant(id);

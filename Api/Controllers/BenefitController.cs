@@ -38,6 +38,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBenefit(int id)
         {
+                        if (id <= 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 Benefit benefit = await _categoryService.GetBenefitById(id);
@@ -52,7 +56,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBenefit([FromBody] IBenefitDTO benefitDTO)
         {
-          
+          if (!ModelState.IsValid || benefitDTO == null)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 Benefit benefit = _mapper.Map<Benefit>(benefitDTO);
@@ -68,6 +75,10 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBenefit(int id, [FromBody] IBenefitDTO benefitDTO)
         {
+            if (!ModelState.IsValid || benefitDTO == null)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 Benefit benefit = _mapper.Map<Benefit>(benefitDTO);
@@ -83,6 +94,10 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBenefit(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Invalid id");
+            }
             try
             {
                 string response = await _categoryService.DeleteBenefit(id);

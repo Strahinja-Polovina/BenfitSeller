@@ -23,6 +23,7 @@ namespace Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             int companyId = GetCompanyId();
             if (companyId == 0)
             {
@@ -45,6 +46,10 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCard(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest("Invalid card id");
+            }
             int companyId = GetCompanyId();
             if (companyId == 0)
             {
@@ -64,6 +69,17 @@ namespace Api.Controllers
         [HttpPost("AddFunds")]
         public async Task<IActionResult> AddFundsToCard([FromBody]IFundsDTO funds, int employeId)
         {
+            if (!ModelState.IsValid || funds == null)
+            {
+                return BadRequest();
+            }
+
+            if (employeId == 0)
+            {
+                return BadRequest("Invalid employee id");
+            }
+
+
             int companyId = GetCompanyId();
             if (companyId == 0)
             {

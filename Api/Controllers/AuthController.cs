@@ -2,6 +2,7 @@
 using BaseLibrary.DTO;
 using BaseLibrary.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Api.Controllers
 {
@@ -15,6 +16,8 @@ namespace Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
+            if (ModelState.IsValid == false) { return BadRequest(ModelState); }
+                
             try
             {
                 LoginResponse response = await _authService.Login(login);
@@ -30,6 +33,7 @@ namespace Api.Controllers
         [Route("refresh")]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenDTO refreshToken)
         {
+            if (ModelState.IsValid == false) { return BadRequest(ModelState); }
             try
             {
                 LoginResponse response = await _authService.Refresh(refreshToken);

@@ -17,6 +17,10 @@ namespace Api.Controllers
         [Route("create")]
         public async Task<IActionResult> CreateComapny([FromBody] AddCompanyDTO user)
         {
+            if (!ModelState.IsValid || user == null)
+            {
+                return BadRequest();
+            }
             try
             {
                 OCompanyDTO response = await _companyService.CreateCompany(user);
@@ -32,6 +36,10 @@ namespace Api.Controllers
         [Route("update/{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] IUpdateCompanyDTO user)
         {
+            if (!ModelState.IsValid || user == null)
+            {
+                return BadRequest();
+            }
             try
             {
                 OCompanyDTO response = await _companyService.UpdateCompany(id, user);
@@ -47,6 +55,10 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
+                        if (id <= 0)
+            {
+                return BadRequest();
+            }
             try
             {
                 OCompanyDTO response = await _companyService.GetCompanyById(id);
@@ -77,6 +89,10 @@ namespace Api.Controllers
         [Route("delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
             try
             {
                 string response = await _companyService.DeleteCompany(id);
