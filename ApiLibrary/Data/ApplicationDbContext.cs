@@ -20,6 +20,7 @@ namespace ApiLibrary.Data
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

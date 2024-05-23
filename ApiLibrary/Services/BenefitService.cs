@@ -11,7 +11,7 @@ namespace ApiLibrary.Services
 
         async Task<Benefit> IBenefitService.CreateBenefit(Benefit benefit)
         {
-            Benefit? dbCategry = await _db.Benefits.FirstOrDefaultAsync(b => b.Name == benefit.Name);
+            Benefit? dbCategry = await _db.Benefits.FirstOrDefaultAsync(b => b.Id == benefit.Id);
             if (dbCategry is not null)
             {
                 throw new Exception("Benefit already exists");

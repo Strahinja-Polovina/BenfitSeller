@@ -54,6 +54,7 @@ builder.Services.AddScoped<ICompanyBenefitService, CompanyBenefitService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddAuthentication(options =>

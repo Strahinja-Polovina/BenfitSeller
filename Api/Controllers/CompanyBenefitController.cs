@@ -23,7 +23,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompanyBenefit([FromBody] ICompanyBenefitDTO companyBenefitDTO)
         {
-            if(!ModelState.IsValid || companyBenefitDTO.BenefitId == 0)
+            if(!ModelState.IsValid || companyBenefitDTO.BenefitId <= 0)
             {
                 return BadRequest();
             }
@@ -36,7 +36,7 @@ namespace Api.Controllers
             try
             {
                 CompanyBenefits newCompanyBenefit = await _companyBenefitService.CreateCompanyBenefit(companyBenefit);
-                return Ok(newCompanyBenefit);
+                return Ok($"Benefit added to company successfully");
             }
             catch (Exception ex)
             {

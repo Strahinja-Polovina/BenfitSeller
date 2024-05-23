@@ -19,13 +19,21 @@ namespace ApiLibrary.Services
 
         public async Task<PaymentResponse> Pay(IPayDTO pay)
         {
-            var dbCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == pay.CardNumber)
-                          ?? throw new Exception("Card not found");
+            var dbCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == pay.CardNumber);
+                if (dbCard == null)
+            {
+                return new PaymentResponse { Status = Constants.StatusFailed, Amount = pay.Amount, CardNumber = pay.CardNumber, MerchantName = "Card not found." };
+
+            }
 
             var dbEmployee = await _db.Employees.Include(e => e.Category)
-                              .FirstOrDefaultAsync(e => e.Id == dbCard.EmployeeId)
-                              ?? throw new Exception("Employee not found");
+                              .FirstOrDefaultAsync(e => e.Id == dbCard.EmployeeId);
 
+                              if (dbEmployee == null)
+            {
+                return new PaymentResponse { Status = Constants.StatusFailed, Amount = pay.Amount, CardNumber = pay.CardNumber, MerchantName = "Employee not found." };
+
+            }
             var category = dbEmployee.Category!.Name;
             var companyId = dbEmployee.CompanyId;
             Merchant? dbMerchant = await _db.Merchants.FirstOrDefaultAsync(m => m.Id == pay.MerchantId);
