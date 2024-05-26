@@ -1,18 +1,7 @@
 version: '3.8'
-
 services:
   api:
     build:
       context: .
     ports:
       - "8000:8080"
-    extra_hosts:
-      - "dockerhost:172.20.0.1"
-
-networks:
-  default:
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.20.0.0/16
-        gateway: 172.20.0.1
